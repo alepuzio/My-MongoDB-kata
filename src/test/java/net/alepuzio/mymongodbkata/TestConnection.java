@@ -1,23 +1,37 @@
 package net.alepuzio.mymongodbkata;
 
-//import com.mongodb.MongoClient;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.After;
+import org.junit.Before;
+
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.core.Is.is;
+import com.mongodb.client.MongoClient;
 import org.junit.Test;
 //import com.mongodb.client.MongoClient;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 public class TestConnection {
-	 @Test
-	    public void shouldCreateANewMongoClientConnectedToLocalhost() throws Exception {
-	        // When
-	        // TODO: get/create the MongoClient
-	//        MongoClient mongoClient = null;
 
-	        // Then
-	  //      assertThat(mongoClient, is(notNullValue()));
-		 assertTrue(true);
-	    }
+	private Connection connection = null;
+
+	@Before
+	public void setUp(){
+		this.connection = new Connection();
+	}
+	@Test
+	public void shouldCreateANewMongoClientConnectedToLocalhost() throws Exception {
+		// When
+		// TODO: get/create the MongoClient
+		MongoClient mongoClient = connection.client(new URL());
+		// Then
+		assertThat(mongoClient, is(notNullValue()));
+		assertTrue(true);
+	}
+	
+	@After
+	public void tearDown(){
+		this.connection = null;
+	}
 }
