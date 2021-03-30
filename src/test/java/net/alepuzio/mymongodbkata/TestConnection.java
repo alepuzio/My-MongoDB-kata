@@ -43,7 +43,8 @@ public class TestConnection {
 		assertThat(docs, is(notNullValue()));
 		assertEquals(3, docs.size());
     }
-
+	
+	@Test
     public void json(){
     	this.connection.json(this.connection.documents(connection.client(new URL())));
     	assertTrue(true);
