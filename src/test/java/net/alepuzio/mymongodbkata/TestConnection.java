@@ -1,16 +1,20 @@
 package net.alepuzio.mymongodbkata;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
-
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.hamcrest.core.Is.is;
-import com.mongodb.client.MongoClient;
 import org.junit.Test;
-//import com.mongodb.client.MongoClient;
+
+import com.mongodb.client.MongoClient;
+
 
 public class TestConnection {
 
@@ -27,11 +31,21 @@ public class TestConnection {
 		MongoClient mongoClient = connection.client(new URL());
 		// Then
 		assertThat(mongoClient, is(notNullValue()));
-		assertTrue(true);
 	}
 	
 	@After
 	public void tearDown(){
 		this.connection = null;
 	}
+	@Test
+    public void documents(){
+    	List<Document> docs = this.connection.documents(connection.client(new URL()));
+		assertThat(docs, is(notNullValue()));
+		assertEquals(3, docs.size());
+    }
+
+    public void json(){
+    	this.connection.json(this.connection.documents(connection.client(new URL())));
+    	assertTrue(true);
+    }
 }
