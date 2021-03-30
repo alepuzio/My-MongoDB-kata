@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.alepuzio</groupId>
+	<artifactId>my-mongodb-kata</artifactId>
+	<version>0.0.1</version><!-- guidelines of Semantic Versioning - https://semver.org/ -->
+	<packaging>jar</packaging>
+
+	<name>my-mongodb-kata</name>
+	<url>https://github.com/alepuzio/My-MongoDB-kata</url>
+
+	<properties>
+		<jdk.version>1.8</jdk.version>
+        <maven-compiler-plugin.source>8</maven-compiler-plugin.source>
+        <maven-compiler-plugin.target>8</maven-compiler-plugin.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mongodb-driver-sync.version>3.11.0</mongodb-driver-sync.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    </properties>
+
+	<dependencies>
+
+
+		<!-- Junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest-all</artifactId>
+    <version>1.3</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>${mongodb-driver-sync.version}</version>
+        </dependency>
+		<!-- Log -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<!--mongodb -->
+		<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongo-java-driver</artifactId>
+    <version>3.4.1</version>
+</dependency>
+	</dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven-compiler-plugin.source}</source>
+                    <target>${maven-compiler-plugin.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
