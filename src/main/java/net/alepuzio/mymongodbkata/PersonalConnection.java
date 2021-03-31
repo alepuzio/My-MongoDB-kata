@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.result.UpdateResult;
 
 public interface PersonalConnection {
 	
@@ -15,22 +18,21 @@ public interface PersonalConnection {
 	  
 	  public Set<String> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName);
 	  
-	    public Set<String> readOneDocument(MongoClient mongoClient, String filter);
+	    public Document readOneDocument(MongoClient mongoClient, BasicDBObject filter);
 		
 	public void readAllCollections();
 		
-	public void insertOneDocument() ;
+	public void insertOneDocument(MongoClient mongoClient, Document newDocument) ;
 		
-	public void updateOneDocument() ;
+	public UpdateResult updateOneDocument(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
 		
-	public void updateMoreDocuments() ;
+	public void updateMoreDocuments(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
 		
-	public void removeOneDocuments() ;
+	public void removeOneDocuments(MongoClient mongoClient,Bson tmp);
 	
-	public void insertOneDocumentInAsyncWay() ;
-		
-    public void moreDocuments();
+	public void insertOneDocumentInAsyncWay(MongoClient mongoClient,Document newDocument);		
     
-    public void printDocumentsInJSON();
+    
+    public void printDocumentsInJSON(List<Document> databases);
     
 }

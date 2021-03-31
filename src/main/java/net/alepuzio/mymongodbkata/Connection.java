@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
-//import com.mongodb.MongoClient;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.result.UpdateResult;
+
 public class Connection implements PersonalConnection {
 	
     public static void main(String[] args) {
@@ -49,13 +52,16 @@ public class Connection implements PersonalConnection {
     	while (it.hasNext()){
     		result.add(it.next());
     	}
+    	System.out.println("databases:"+result);
     	return result;
 
     }
     
     @Override
-    public Set<String> readOneDocument(MongoClient mongoClient, String filter){
-    	return null;
+    public Document readOneDocument(MongoClient mongoClient, BasicDBObject filter){
+    	FindIterable<Document> result = mongoClient.getDatabase("databaseName").getCollection("nameCollection")
+    			.find(filter);
+    	return result.first();
     }
 
     public void json(List<Document> databases){
@@ -74,45 +80,40 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public void insertOneDocument() {
-		// TODO Auto-generated method stub
+	public void insertOneDocument(MongoClient mongoClient, Document newDocument) {
+		mongoClient.getDatabase("databaseName").getCollection("nameCollection")
+    			.insertOne(newDocument);
+	}
+
+	@Override
+	public UpdateResult updateOneDocument(MongoClient mongoClient,Bson oldDocument, Bson newDocument) {
+		return mongoClient.getDatabase("databaseName").getCollection("nameCollection")
+		.updateOne(oldDocument, newDocument);
+	
+	}
+
+	@Override
+	public void updateMoreDocuments(MongoClient mongoClient,Bson oldDocument, Bson newDocument) {
+		 mongoClient.getDatabase("databaseName").getCollection("nameCollection")
+				.updateMany(oldDocument, newDocument);
+		
 		
 	}
 
 	@Override
-	public void updateOneDocument() {
-		// TODO Auto-generated method stub
-		
+	public void removeOneDocuments(MongoClient mongoClient,Bson tmp) {
+		 mongoClient.getDatabase("databaseName").getCollection("nameCollection").deleteOne(tmp);
 	}
 
 	@Override
-	public void updateMoreDocuments() {
-		// TODO Auto-generated method stub
-		
+	public void insertOneDocumentInAsyncWay(MongoClient mongoClient,Document newDocument) {
+		mongoClient.getDatabase("databaseName").getCollection("nameCollection").insertOne(newDocument);		
 	}
 
-	@Override
-	public void removeOneDocuments() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void insertOneDocumentInAsyncWay() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void moreDocuments() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void printDocumentsInJSON() {
-		// TODO Auto-generated method stub
-		
+	public void printDocumentsInJSON(List<Document> databases){
+    	databases.forEach(db -> System.out.println(db.toJson()));		
 	}
 
 }
