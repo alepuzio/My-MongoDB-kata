@@ -20,9 +20,8 @@ public interface PersonalConnection {
 		
 	public void readAllCollections();
 		
-		
-	public UpdateResult updateOneDocument(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
-		
+	public UpdateResult updateOneDocument(
+			MongoClient mongoClient, String database, String collection, Bson oldDocument, Bson newDocument) ;		
 	public void updateMoreDocuments(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
 		
 	public void removeOneDocuments(MongoClient mongoClient,Bson tmp);

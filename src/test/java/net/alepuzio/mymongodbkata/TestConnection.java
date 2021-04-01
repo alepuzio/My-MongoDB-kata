@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
-
+import com.mongodb.client.result.UpdateResult;
 /**
  * from https://developer.mongodb.com/quickstart/java-setup-crud-operations/
  * */
@@ -84,7 +84,6 @@ public class TestConnection {
 		assertEquals(0, result.size());
 	}
 
-	@Ignore
 	@Test
 	public void should_insertOneDocumentInNotAsyncWay() {
 		Document newDocument = new Document().append("Author", "William Gibson");
@@ -92,12 +91,18 @@ public class TestConnection {
 		assertTrue(true);
 	}
 
-	@Ignore
 	@Test
 	public void should_updateOneDocument() {
-		Bson newDocument = new BasicDBObject().append("_id", "558d351236fae2f799bb5997").append("value", "old");
-		Bson oldDocument = new BasicDBObject().append("_id", "558d351236fae2f799bb5997").append("value", "new");
-		this.connection.updateOneDocument(connection.client(new URL()),oldDocument, newDocument);
+		Bson filter = new BasicDBObject("_id", new ObjectId("606581e9ccadb15a1957ad48"));
+        Bson updateOperation = new BasicDBObject("$set", new BasicDBObject("topic", "science-fiction"))	;
+		UpdateResult result = this.connection.updateOneDocument(connection.client(new URL()), 
+				"book", 
+				"book",
+				filter,
+				updateOperation);
+        System.out.println(String.format("=> Updating the doc with {%s}.", filter));
+        System.out.println("result:"+result);
+		assertEquals(1, result.getModifiedCount());
 	}
 
 	@Ignore

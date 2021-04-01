@@ -52,7 +52,7 @@ public class Connection implements PersonalConnection {
     	while (it.hasNext()){
     		result.add(it.next());
     	}
-    	System.out.println("databases:"+result);
+    	//System.out.println("databases:"+result); TODO put log
     	return result;
 
     }
@@ -89,10 +89,12 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public UpdateResult updateOneDocument(MongoClient mongoClient,Bson oldDocument, Bson newDocument) {
-		return mongoClient.getDatabase("databaseName").getCollection("nameCollection")
-		.updateOne(oldDocument, newDocument);
-	
+	public UpdateResult updateOneDocument(
+			MongoClient mongoClient, String database, String collection, Bson filter, Bson updateData) {
+		return mongoClient
+				.getDatabase(database)
+				.getCollection(collection)
+				.updateOne(filter, updateData);
 	}
 
 	@Override
