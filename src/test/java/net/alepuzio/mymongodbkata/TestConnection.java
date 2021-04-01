@@ -86,6 +86,7 @@ public class TestConnection {
 	}
 
 	@Test
+	@Ignore
 	public void should_insertOneDocumentInNotAsyncWay() {
 		Document newDocument = new Document().append("Author", "William Gibson");
 		this.connection.insertOneDocumentInNotAsyncWay(connection.client(new URL()), "book", "book",newDocument);
@@ -112,11 +113,10 @@ public class TestConnection {
 		this.connection.updateMoreDocuments(connection.client(new URL()),"book", "book", filter, updateOperation);
 	}
 
-	@Ignore
 	@Test
-	public void should_removeOneDocuments() {
-		Bson toRemove = new BasicDBObject().append("_id", "558d351236fae2f799bb5997");
-		this.connection.removeOneDocuments(connection.client(new URL()), toRemove);
+	public void should_removeOneDocument() {
+		Bson toRemove = new Document().append("title", "The Odyssey");
+		this.connection.removeOneDocument(connection.client(new URL()), "book", "book", toRemove);
 	
 	}
 	
@@ -124,7 +124,7 @@ public class TestConnection {
 	@Test
 	public void should_insertOneDocumentInAsyncWay() {
 		Document newDocument = null; //TODO instantiate
-		this.connection.insertOneDocumentInAsyncWay(connection.client(new URL()), newDocument);
+		this.connection.insertOneDocumentInAsyncWay(connection.client(new URL()),"book","book", newDocument);
 	}
 
 	@After

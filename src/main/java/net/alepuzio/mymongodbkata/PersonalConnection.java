@@ -24,9 +24,10 @@ public interface PersonalConnection {
 			MongoClient mongoClient, String database, String collection, Bson oldDocument, Bson newDocument) ;		
 	public void updateMoreDocuments(MongoClient mongoClient, String database, String collection, Bson oldDocument, Bson newDocument);
 		
-	public void removeOneDocuments(MongoClient mongoClient,Bson tmp);
+	public void removeOneDocument(MongoClient mongoClient, String database, String collection, Bson tmp);
 	
-	public void insertOneDocumentInAsyncWay(MongoClient mongoClient,Document newDocument);		
+	public void insertOneDocumentInAsyncWay(MongoClient mongoClient, String database, 
+			String collection, Document newDocument);
 	public void insertOneDocumentInNotAsyncWay(MongoClient mongoClient, String database, String collection, Document newDocument) ;
     
     
