@@ -70,9 +70,9 @@ public class TestConnection {
 	@Test
 	public void should_reaAllCollectionsInExistingDb(){
 		Set<String> result = this.connection.readAllCollectionsOneDatabase(
-				connection.client(new URL()), "local"
+				connection.client(new URL()), "book"
 				);
-		int expected = 0 ;//TODO create a collction in db , 0 is shared value in not-existing db
+		int expected = 1 ;// 0 is shared value in not-existing db
 		assertEquals(expected, result.size());
 	}
 

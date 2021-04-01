@@ -46,7 +46,7 @@ public class Connection implements PersonalConnection {
     @Override
     public Set<String> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName){
     	Set<String> result = new HashSet<String>();
-    	MongoDatabase db = mongoClient.getDatabase( "databaseName" );
+    	MongoDatabase db = mongoClient.getDatabase(databaseName );
     	MongoIterable<String> colls = db.listCollectionNames();
     	MongoCursor<String> it = colls.iterator();
     	while (it.hasNext()){
