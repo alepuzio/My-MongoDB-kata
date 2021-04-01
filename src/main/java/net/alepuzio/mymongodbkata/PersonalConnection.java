@@ -13,12 +13,11 @@ import com.mongodb.client.result.UpdateResult;
 public interface PersonalConnection {
 	
 	  public MongoClient client(URL url);
-		
 	  public List<Document> readAllDocumentsAllDatabase(MongoClient mongoClient);
 	  
 	  public Set<String> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName);
 	  
-	    public Document readOneDocument(MongoClient mongoClient, BasicDBObject filter);
+	    public Document readOneDocument(MongoClient mongoClient, String database, String collection, BasicDBObject filter);
 		
 	public void readAllCollections();
 		

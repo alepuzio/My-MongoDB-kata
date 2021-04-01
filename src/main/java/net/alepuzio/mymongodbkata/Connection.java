@@ -58,8 +58,10 @@ public class Connection implements PersonalConnection {
     }
     
     @Override
-    public Document readOneDocument(MongoClient mongoClient, BasicDBObject filter){
-    	FindIterable<Document> result = mongoClient.getDatabase("databaseName").getCollection("nameCollection")
+    public Document readOneDocument(MongoClient mongoClient, String database, String collection, BasicDBObject filter){
+    	FindIterable<Document> result = mongoClient
+    			.getDatabase(database)
+    			.getCollection(collection)
     			.find(filter);
     	return result.first();
     }

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,11 +39,13 @@ public class TestConnection {
 		// Then
 		assertThat(mongoClient, is(notNullValue()));
 	}
+	
 	@Test
     public void should_readMoreDocuments(){
     	List<Document> docs = this.connection.readAllDocumentsAllDatabase(connection.client(new URL()));
 		assertThat(docs, is(notNullValue()));
-		assertEquals(3, docs.size());
+		final int expectedReadBooks = 4; 
+		assertEquals(expectedReadBooks, docs.size());
     }
 	
 	@Test
@@ -53,10 +56,14 @@ public class TestConnection {
 
 	@Test
 	public void should_readOneDocument() {
-		BasicDBObject filter = new BasicDBObject().append("key", "value");//TODO create collection and document
-    	Document result = this.connection.readOneDocument(connection.client(new URL()), filter);
-    	Document expected = null;
-    	assertEquals(expected, result);
+		BasicDBObject filter = new BasicDBObject().append("Author", "Ada Lovelace");//TODO create collection and document
+    	Document result = this.connection.readOneDocument(connection.client(new URL()), "book", "book", filter);
+    	Document expected = new Document()
+    			.append("Author", "Ada Lovelace")
+    			.append("age", new Double("205.0"))//TODO transform in integer
+    			;
+    	assertEquals(expected.get("Author"), result.get("Author"));
+    	assertEquals(expected.get("age"), result.get("age"));
 	}
 
 	
@@ -84,6 +91,7 @@ public class TestConnection {
 		this.connection.insertOneDocument(connection.client(new URL()),newDocument);
 	}
 
+	@Ignore
 	@Test
 	public void should_updateOneDocument() {
 		Bson newDocument = new BasicDBObject().append("_id", "558d351236fae2f799bb5997").append("value", "old");
@@ -99,6 +107,7 @@ public class TestConnection {
 		this.connection.updateMoreDocuments(connection.client(new URL()),oldDocument, newDocument);
 	}
 
+	@Ignore
 	@Test
 	public void should_removeOneDocuments() {
 		Bson toRemove = new BasicDBObject().append("_id", "558d351236fae2f799bb5997");
@@ -106,6 +115,7 @@ public class TestConnection {
 	
 	}
 	
+	@Ignore
 	@Test
 	public void should_insertOneDocumentInAsyncWay() {
 		Document newDocument = null; //TODO instantiate
