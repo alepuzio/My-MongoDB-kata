@@ -1,11 +1,14 @@
-use database_kata
+use book
 
 #verify
 
 show dbs
 
 db.book.insert({Author: "Ada Lovelace", age: 205})
-
+/*
+#OUTPUT
+ WriteResult({ "nInserted" : 1 })
+*/
 db.book.insert([
 { "_id" : 8752, "title" : "Divine Comedy", "author" : "Dante", "copies" : 1 },
 { "_id" : 7000, "title" : "The Odyssey", "author" : "Homer", "copies" : 10 },
@@ -14,3 +17,16 @@ db.book.insert([
 { "_id" : 8751, "title" : "The Banquet", "author" : "Dante", "copies" : 2 }
 ])
 
+/*
+#OUTPUT:
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+*/
