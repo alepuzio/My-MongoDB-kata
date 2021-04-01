@@ -5,6 +5,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 import java.util.Set;
@@ -100,17 +101,15 @@ public class TestConnection {
 				"book",
 				filter,
 				updateOperation);
-        System.out.println(String.format("=> Updating the doc with {%s}.", filter));
-        System.out.println("result:"+result);
-		assertEquals(1, result.getModifiedCount());
+        assertNotNull( result);
 	}
 
 	@Ignore
 	@Test
 	public void should_updateMoreDocuments() {
-		Bson newDocument = new BasicDBObject().append("value", "old");
-		Bson oldDocument = new BasicDBObject().append("value", "new_more");
-		this.connection.updateMoreDocuments(connection.client(new URL()),oldDocument, newDocument);
+		Bson filter = new Document("topic", "science-fiction");
+        Bson updateOperation = new Document("$set", new Document("country", "Canada"));
+		this.connection.updateMoreDocuments(connection.client(new URL()),"book", "book", filter, updateOperation);
 	}
 
 	@Ignore

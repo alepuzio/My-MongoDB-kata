@@ -98,11 +98,10 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public void updateMoreDocuments(MongoClient mongoClient,Bson oldDocument, Bson newDocument) {
-		 mongoClient.getDatabase("databaseName").getCollection("nameCollection")
-				.updateMany(oldDocument, newDocument);
-		
-		
+	public void updateMoreDocuments(MongoClient mongoClient, String database,String collection, Bson filter, Bson newData) {
+		 mongoClient.getDatabase(database)
+		 			.getCollection(collection)
+		 			.updateMany(filter, newData);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public interface PersonalConnection {
 		
 	public UpdateResult updateOneDocument(
 			MongoClient mongoClient, String database, String collection, Bson oldDocument, Bson newDocument) ;		
-	public void updateMoreDocuments(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
+	public void updateMoreDocuments(MongoClient mongoClient, String database, String collection, Bson oldDocument, Bson newDocument);
 		
 	public void removeOneDocuments(MongoClient mongoClient,Bson tmp);
 	
