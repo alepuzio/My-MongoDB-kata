@@ -22,15 +22,6 @@ import com.mongodb.client.result.UpdateResult;
 
 public class Connection implements PersonalConnection {
 
-	public static void main(String[] args) {
-		String connectionString = new URL().value();
-		// System.getProperty("mongodb.uri");
-		try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-			List<Document> databases = mongoClient.listDatabases().into(new ArrayList<>());
-			databases.forEach(db -> System.out.println(db.toJson()));
-		}
-	}
-
 	@Override
 	public MongoClient client(URL url) {
 		return MongoClients.create(new URL().value());
