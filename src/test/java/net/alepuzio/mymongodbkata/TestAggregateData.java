@@ -3,6 +3,7 @@ package net.alepuzio.mymongodbkata;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -46,8 +47,13 @@ public class TestAggregateData {
 			
 	}
 	@Test
-	public void mapReduce() {
-		fail("Not yet implemented");
+	public void should_map_reduce_when_2_author_not_modified() {
+		// When
+		MongoDBAggregateData aggregateData = new MongoDBAggregateData(connection.client(new URL()));
+		Document filter = new Document().append("speed", new Document().append("$gt", 10));
+		Document document = aggregateData.mapReduce("journaldev", "car", filter).get(0);
+		System.out.println("document.get(count)"+document);
+		assertNotNull(document);
 		
 	}
 	@Test

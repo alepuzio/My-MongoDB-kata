@@ -4,29 +4,41 @@ use book
 
 show dbs
 
-db.book.insert({Author: "Ada Lovelace", age: 205})
+db.book.insert({Author: "Ada Lovelace",  age: 205})
 /*
 #OUTPUT
  WriteResult({ "nInserted" : 1 })
 */
 db.book.insert([
-{ "_id" : 8752, "title" : "Divine Comedy", "author" : "Dante", "copies" : 1 },
-{ "_id" : 7000, "title" : "The Odyssey", "author" : "Homer", "copies" : 10 },
-{ "_id" : 7020, "title" : "Iliad", "author" : "Homer", "copies" : 10 },
-{ "_id" : 8645, "title" : "Eclogues", "author" : "Dante", "copies" : 2 },
-{ "_id" : 8751, "title" : "The Banquet", "author" : "Dante", "copies" : 2 }
+{ "_id" : 8752,  "title" : "Divine Comedy",  "author" : "Dante",  "copies" : 1 }, 
+{ "_id" : 7000,  "title" : "The Odyssey",  "author" : "Homer",  "copies" : 10 }, 
+{ "_id" : 7020,  "title" : "Iliad",  "author" : "Homer",  "copies" : 10 }, 
+{ "_id" : 8645,  "title" : "Eclogues",  "author" : "Dante",  "copies" : 2 }, 
+{ "_id" : 8751,  "title" : "The Banquet",  "author" : "Dante",  "copies" : 2 }
 ])
 
 /*
 #OUTPUT:
 BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 5,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
+        "writeErrors" : [ ], 
+        "writeConcernErrors" : [ ], 
+        "nInserted" : 5, 
+        "nUpserted" : 0, 
+        "nMatched" : 0, 
+        "nModified" : 0, 
+        "nRemoved" : 0, 
         "upserted" : [ ]
 })
 */
+
+# from https://www.journaldev.com/6322/mongodb-map-reduce-example-using-mongo-shell-and-java-driver
+use journaldev
+db.car.insert( 
+[ 
+{car_id:"c1", name:"Audi", color:"Black", cno:"H110", mfdcountry:"Germany", speed:72, price:11.25}, 
+ {car_id:"c2", name:"Polo", color:"White", cno:"H111", mfdcountry:"Japan", speed:65, price:8.5},  
+ {car_id:"c3", name:"Alto", color:"Silver", cno:"H112", mfdcountry:"India", speed:53, price:4.5}, 
+{car_id:"c4", name:"Santro", color:"Grey", cno:"H113", mfdcountry:"Sweden", speed:89, price:3.5} , 
+{car_id:"c5", name:"Zen", color:"Blue", cno:"H114", mfdcountry:"Denmark", speed:94, price:6.5} 
+]
+)
