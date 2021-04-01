@@ -104,7 +104,7 @@ public class TestConnection {
         assertNotNull( result);
 	}
 
-	@Ignore
+	
 	@Test
 	public void should_updateMoreDocuments() {
 		Bson filter = new Document("topic", "science-fiction");
