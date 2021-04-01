@@ -68,10 +68,5 @@ public class MongoDBAggregateData implements AggregateData {
 		return result;
 	}
 
-	@Override
-	public void validate() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
