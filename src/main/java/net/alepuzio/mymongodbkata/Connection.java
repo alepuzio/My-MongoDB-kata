@@ -9,7 +9,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.async.SingleResultCallback;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -40,17 +39,16 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public Set<String> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName) {
-		Set<String> result = new HashSet<String>();
+	public Set<Document> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName) {
+		Set<Document> result = new HashSet<Document>();
 		MongoDatabase db = mongoClient.getDatabase(databaseName);
-		MongoIterable<String> colls = db.listCollectionNames();
-		MongoCursor<String> it = colls.iterator();
+		MongoIterable<Document> colls = db.listCollections();//;CollectionNames();
+		MongoCursor<Document> it = colls.iterator(); 
 		while (it.hasNext()) {
 			result.add(it.next());
 		}
 		// System.out.println("databases:"+result); TODO put log
 		return result;
-
 	}
 
 	@Override
@@ -58,6 +56,7 @@ public class Connection implements PersonalConnection {
 		FindIterable<Document> result = mongoClient.getDatabase(database).getCollection(collection).find(filter);
 		return result.first();
 	}
+
 
 	public void json(List<Document> databases) {
 		databases.forEach(db -> System.out.println(db.toJson()));
@@ -112,6 +111,27 @@ public class Connection implements PersonalConnection {
 	@Override
 	public void printDocumentsInJSON(List<Document> databases) {
 		databases.forEach(db -> System.out.println(db.toJson()));
+	}
+
+	@Override
+	public Set<Document> readAllCollectionsOneDatabaseWithLimit(MongoClient mongoClient, String databaseName,
+			String collectionName, Bson filter, int limit) {
+		Set<Document> result = new HashSet<Document>();
+		MongoIterable<Document> colls = mongoClient
+				.getDatabase(databaseName)
+				.getCollection(collectionName)
+				.find(filter).limit(limit);
+		MongoCursor<Document> it = colls.iterator(); 
+		while (it.hasNext()) {
+			result.add(it.next());
+		}
+		return result;
+	}
+
+	@Override
+	public Set<Document> readSkippedCollectionsOneDatabase(MongoClient mongoClient, String databaseName, int skip) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

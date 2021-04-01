@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoIterable;
 import com.mongodb.client.result.UpdateResult;
 /**
  * from https://developer.mongodb.com/quickstart/java-setup-crud-operations/
@@ -70,7 +71,7 @@ public class TestConnection {
 	
 	@Test
 	public void should_reaAllCollectionsInExistingDb(){
-		Set<String> result = this.connection.readAllCollectionsOneDatabase(
+		Set<Document> result = this.connection.readAllCollectionsOneDatabase(
 				connection.client(new URL()), "book"
 				);
 		int expected = 1 ;// 0 is shared value in not-existing db
@@ -79,7 +80,7 @@ public class TestConnection {
 
 	@Test
 	public void should_reaAllCollectionsInAbsentDb(){
-		Set<String> result = this.connection.readAllCollectionsOneDatabase(
+		Set<Document> result = this.connection.readAllCollectionsOneDatabase(
 				connection.client(new URL()), "local_not_exists"
 				);
 		assertEquals(0, result.size());
@@ -130,9 +131,16 @@ public class TestConnection {
 
 	@Test
     public void should_readMoreDocuments_limit(){
-    	List<Document> docs = this.connection.readAllDatabasesAsDocument(connection.client(new URL()));
+		Bson filter = new BasicDBObject().append("Author", "William Gibson");
+		Set<Document> docs = this.connection.readAllCollectionsOneDatabaseWithLimit(
+				connection.client(new URL()),"book",
+				"book",
+				filter,
+				2
+				);
+				
 		assertThat(docs, is(notNullValue()));
-		final int expectedReadBooks = 4; 
+		final int expectedReadBooks = 2; 
 		assertEquals(expectedReadBooks, docs.size());
     }
 	@After
