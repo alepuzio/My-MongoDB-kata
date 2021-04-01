@@ -1,2 +1,5 @@
 use database_kata
 db.dropDatabase()
+
+use journaldev
+db.dropDatabase()
