@@ -143,6 +143,23 @@ public class TestConnection {
 		final int expectedReadBooks = 2; 
 		assertEquals(expectedReadBooks, docs.size());
     }
+	
+	@Test
+    public void should_readMoreDocuments_skip(){
+		Bson filter = new BasicDBObject().append("Author", "Ada Lovelace");
+		Set<Document> docs = this.connection.readSkippedCollectionsOneDatabase(
+				connection.client(new URL()),"book",
+				"book",
+				filter,
+				1
+				);
+				
+		assertThat(docs, is(notNullValue()));
+		final int expectedReadBooks = 0; 
+		assertEquals(expectedReadBooks, docs.size());
+	
+	}	
+	
 	@After
 	public void tearDown(){
 		this.connection = null;

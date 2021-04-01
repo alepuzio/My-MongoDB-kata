@@ -20,8 +20,8 @@ public interface PersonalConnection {
 	public Set<Document> readAllCollectionsOneDatabaseWithLimit(MongoClient mongoClient, String databaseName,
 			String collectionName, Bson filter, int limit);
 
-	public Set<Document> readSkippedCollectionsOneDatabase(MongoClient mongoClient, String databaseName, int skip);
-
+	public Set<Document> readSkippedCollectionsOneDatabase(MongoClient mongoClient, String databaseName,
+			String collectionName, Bson filter, int skip);
 	public Document readOneDocument(MongoClient mongoClient, String database, String collection, BasicDBObject filter);
 
 	public void readAllCollections();

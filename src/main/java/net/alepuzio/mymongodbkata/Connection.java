@@ -1,9 +1,12 @@
 package net.alepuzio.mymongodbkata;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -129,9 +132,13 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public Set<Document> readSkippedCollectionsOneDatabase(MongoClient mongoClient, String databaseName, int skip) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Document> readSkippedCollectionsOneDatabase(MongoClient mongoClient, String databaseName,
+			String collectionName, Bson filter, int skip) {
+		MongoIterable<Document> colls = mongoClient
+				.getDatabase(databaseName)
+				.getCollection(collectionName)
+				.find(filter).skip(skip);
+		 return StreamSupport.stream(colls.spliterator(), false).collect(Collectors.toSet());
 	}
 
 }
