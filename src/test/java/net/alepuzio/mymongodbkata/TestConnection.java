@@ -86,9 +86,10 @@ public class TestConnection {
 
 	@Ignore
 	@Test
-	public void should_insertOneDocument() {
-		Document newDocument = new Document();//BasicDBObject().append("key", "value");//TODO create collection and document
-		this.connection.insertOneDocument(connection.client(new URL()),newDocument);
+	public void should_insertOneDocumentInNotAsyncWay() {
+		Document newDocument = new Document().append("Author", "William Gibson");
+		this.connection.insertOneDocumentInNotAsyncWay(connection.client(new URL()), "book", "book",newDocument);
+		assertTrue(true);
 	}
 
 	@Ignore

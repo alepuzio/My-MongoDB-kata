@@ -82,9 +82,10 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public void insertOneDocument(MongoClient mongoClient, Document newDocument) {
-		mongoClient.getDatabase("databaseName").getCollection("nameCollection")
-    			.insertOne(newDocument);
+	public void insertOneDocumentInNotAsyncWay(MongoClient mongoClient, String database, String collection, Document newDocument) {
+		mongoClient.getDatabase(database)
+					.getCollection(collection)
+					.insertOne(newDocument);
 	}
 
 	@Override

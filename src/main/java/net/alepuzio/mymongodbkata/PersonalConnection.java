@@ -11,7 +11,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.result.UpdateResult;
 
 public interface PersonalConnection {
-	
 	  public MongoClient client(URL url);
 	  public List<Document> readAllDocumentsAllDatabase(MongoClient mongoClient);
 	  
@@ -21,7 +20,6 @@ public interface PersonalConnection {
 		
 	public void readAllCollections();
 		
-	public void insertOneDocument(MongoClient mongoClient, Document newDocument) ;
 		
 	public UpdateResult updateOneDocument(MongoClient mongoClient,Bson oldDocument, Bson newDocument);
 		
@@ -30,6 +28,7 @@ public interface PersonalConnection {
 	public void removeOneDocuments(MongoClient mongoClient,Bson tmp);
 	
 	public void insertOneDocumentInAsyncWay(MongoClient mongoClient,Document newDocument);		
+	public void insertOneDocumentInNotAsyncWay(MongoClient mongoClient, String database, String collection, Document newDocument) ;
     
     
     public void printDocumentsInJSON(List<Document> databases);
