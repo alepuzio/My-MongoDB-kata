@@ -12,7 +12,7 @@ import com.mongodb.client.result.UpdateResult;
 
 public interface PersonalConnection {
 	  public MongoClient client(URL url);
-	  public List<Document> readAllDocumentsAllDatabase(MongoClient mongoClient);
+	  public List<Document> readAllDatabasesAsDocument(MongoClient mongoClient);
 	  
 	  public Set<String> readAllCollectionsOneDatabase(MongoClient mongoClient, String databaseName);
 	  

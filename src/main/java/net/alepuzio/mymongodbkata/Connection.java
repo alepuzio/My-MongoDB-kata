@@ -35,7 +35,7 @@ public class Connection implements PersonalConnection {
 	}
 
 	@Override
-	public List<Document> readAllDocumentsAllDatabase(MongoClient mongoClient) {
+	public List<Document> readAllDatabasesAsDocument(MongoClient mongoClient) {
 		return mongoClient.listDatabases().into(new ArrayList<>());
 	}
 
@@ -99,14 +99,14 @@ public class Connection implements PersonalConnection {
 	@Override
 	public void insertOneDocumentInAsyncWay(MongoClient mongoClient, String database, 
 			String collection, Document newDocument) {
-		mongoClient.getDatabase(database)
+		/*mongoClient.getDatabase(database)
 		.getCollection(collection).insertOne(newDocument,
 				new SingleResultCallback<Void>() {
 		    @Override
 		    public void onResult(final Void result, final Throwable t) {
 		        System.out.println("Inserted!");
 		    }
-		});		
+		});*/		
 	}
 
 	@Override

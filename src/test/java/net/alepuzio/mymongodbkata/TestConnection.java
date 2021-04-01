@@ -43,7 +43,7 @@ public class TestConnection {
 	
 	@Test
     public void should_readMoreDocuments(){
-    	List<Document> docs = this.connection.readAllDocumentsAllDatabase(connection.client(new URL()));
+    	List<Document> docs = this.connection.readAllDatabasesAsDocument(connection.client(new URL()));
 		assertThat(docs, is(notNullValue()));
 		final int expectedReadBooks = 4; 
 		assertEquals(expectedReadBooks, docs.size());
@@ -51,7 +51,7 @@ public class TestConnection {
 	
 	@Test
     public void should_printDocumentsInJSON(){
-    	this.connection.json(this.connection.readAllDocumentsAllDatabase(connection.client(new URL())));
+    	this.connection.json(this.connection.readAllDatabasesAsDocument(connection.client(new URL())));
     	assertTrue(true);
     }
 
@@ -127,6 +127,14 @@ public class TestConnection {
 		this.connection.insertOneDocumentInAsyncWay(connection.client(new URL()),"book","book", newDocument);
 	}
 
+
+	@Test
+    public void should_readMoreDocuments_limit(){
+    	List<Document> docs = this.connection.readAllDatabasesAsDocument(connection.client(new URL()));
+		assertThat(docs, is(notNullValue()));
+		final int expectedReadBooks = 4; 
+		assertEquals(expectedReadBooks, docs.size());
+    }
 	@After
 	public void tearDown(){
 		this.connection = null;
