@@ -1,0 +1,6 @@
+db.book.updateMany ( {"author" : "William Gibson"} , { $set : {"rank" : 20} } )
+db.book.updateMany ( {"author" : "William Gibson"} , { $set : {"numberBook" : 13} } )
+var mapfunction = function(){emit(this.rank , this.numberBook)}
+var reducefunction = function (key, values) {return Array.sum(values)}
+db.book.mapReduce(mapfunction, reducefunction, {'out':'Result1_mapreduce'})
+db.Result1_mapreduce.find()
