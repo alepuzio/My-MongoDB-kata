@@ -4,3 +4,15 @@ var mapfunction = function(){emit(this.rank , this.numberBook)}
 var reducefunction = function (key, values) {return Array.sum(values)}
 db.book.mapReduce(mapfunction, reducefunction, {'out':'Result1_mapreduce'})
 db.Result1_mapreduce.find()
+
+
+/**
+Aggregator
+ - The Field “$_id” must be an accumulator object: $_di is not an accumuator operator
+ - A pipeline stage specification object must contain exactly one field: the $group operator requires one json that has 1 or more fields.
+ The fields of the json of the $group are not in separate json but in one that contains the fileds in inner mode
+*/
+/*
+error in id accumulator
+b.book.aggregate ( [{ $match: {country:"Canada"  } }, { $group:{ id:"$_id" , total : { $sum:"$rank"  } } }  ] )
+*/
